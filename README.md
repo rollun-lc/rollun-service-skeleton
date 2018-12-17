@@ -23,3 +23,20 @@
 * `/logout` - логаут пользователя
 * `/api/datastore/{resourceName}[/{id}]` роутинг для доступу к абстрактному хранилищу, где `resourceName` название 
 сервиса, а `id` - идентификатор записи.
+
+**Обязательные переменные окружения:**
+* Для БД:
+    - DB_DRIVER (`Pdo_Mysql` - по умолчанию)
+    - DB_NAME
+    - DB_USER
+    - DB_PASS
+    - DB_HOST
+    - DB_PORT (`3306` - по умолчанию)
+
+* Для аутентификацииЖ
+    - GOOGLE_CLIENT_SECRET - client_secret в личном кабинете google
+    - GOOGLE_CLIENT_ID - client_id в личном кабинете google
+    - GOOGLE_PROJECT_ID - project_id в личном кабинете google
+    - HOST - домен сайт где происходит авторизация
+    - EMAIL_FROM - от кого отправить email для подтверждения регистрации
+    - EMAIL_TO - кому отправить email для подтверждения регистрации
