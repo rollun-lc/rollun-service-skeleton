@@ -6,8 +6,6 @@
 
 declare(strict_types = 1);
 
-use Psr\Container\ContainerInterface as PsrContainerInterface;
-use Interop\Container\ContainerInterface as InteropContainerInterface;
 use rollun\dic\InsideConstruct;
 use rollun\logger\LifeCycleToken;
 use Zend\Expressive\Application;
