@@ -8,6 +8,7 @@ use Psr\Log\LoggerInterface;
 use rollun\logger\Formatter\ContextToString;
 use rollun\logger\Processor\ExceptionBacktrace;
 use rollun\logger\Processor\IdMaker;
+use rollun\logger\Processor\LifeCycleTokenInjector;
 use Zend\Log\Writer\Db as DbWriter;
 
 return [
@@ -19,6 +20,9 @@ return [
                 ],
                 [
                     'name' => ExceptionBacktrace::class,
+                ],
+                [
+                    'name' => LifeCycleTokenInjector::class,
                 ],
             ],
             'writers' => [

@@ -12,6 +12,7 @@ use rollun\dic\InsideConstruct;
 use rollun\logger\LifeCycleToken;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
+use Zend\ServiceManager\ServiceManager;
 
 error_reporting(E_ALL ^ E_USER_DEPRECATED);
 
@@ -27,7 +28,7 @@ require 'vendor/autoload.php';
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.
  */
 (function () {
-    /** @var PsrContainerInterface|InteropContainerInterface $container */
+    /** @var ServiceManager $container */
     $container = require 'config/container.php';
 
     InsideConstruct::setContainer($container);
@@ -47,6 +48,8 @@ require 'vendor/autoload.php';
     if (LifeCycleToken::getAllHeaders() && array_key_exists("LifeCycleToken", LifeCycleToken::getAllHeaders())) {
         $lifeCycleToken->unserialize(LifeCycleToken::getAllHeaders()["LifeCycleToken"]);
     }
+
+    $container->setService(LifeCycleToken::class, $lifeCycleToken);
 
     $app->run();
 })();
