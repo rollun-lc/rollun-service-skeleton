@@ -13,6 +13,8 @@
 * [create_table_logs.sql](https://github.com/rollun-com/rollun-logger/blob/4.2.1/src/create_table_logs.sql)
 * [acl.sql](https://github.com/rollun-com/rollun-permission/blob/4.0.0/src/Permission/src/acl.sql)
 
+Так же могут пригодиться настройки ACL по умолчанию: [acl_default.sql](/data/acl_default.sql).
+
 `rollun-service-skeleton` имеет несколько роутов по умолчанию:
 * `/` - тестовый хендлер
 * `/oauth/redirect` - редирект на гугл аутентификацию
