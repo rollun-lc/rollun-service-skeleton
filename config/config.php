@@ -47,6 +47,7 @@ $aggregator = new ConfigAggregator([
     \rollun\uploader\ConfigProvider::class,
     \rollun\datastore\ConfigProvider::class,
     \rollun\permission\ConfigProvider::class,
+    \rollun\logger\ConfigProvider::class,
 
     // Swoole config to overwrite some services (if installed)
     class_exists(\Zend\Expressive\Swoole\ConfigProvider::class)
