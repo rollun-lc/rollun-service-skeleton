@@ -1,5 +1,3 @@
-LOCK TABLES `acl_users` WRITE;
-
 TRUNCATE acl_user_roles;
 TRUNCATE acl_users;
 TRUNCATE acl_privilege;
@@ -188,5 +186,3 @@ INSERT INTO `acl_users`
 VALUES      ('1',
              'admin',
              '');
-
-UNLOCK TABLES;
