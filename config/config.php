@@ -24,8 +24,11 @@ $cacheConfig = [
 $appEnv = getenv('APP_ENV');
 
 $aggregator = new ConfigAggregator([
-    \rollun\uploader\ConfigProvider::class,
-    \rollun\datastore\ConfigProvider::class,
+    \Zend\Expressive\Authentication\Basic\ConfigProvider::class,
+    \Zend\Expressive\Authentication\Session\ConfigProvider::class,
+    \Zend\Expressive\Authentication\ConfigProvider::class,
+    \Zend\Expressive\Session\ConfigProvider::class,
+    \Zend\Expressive\Session\Ext\ConfigProvider::class,
     \Zend\Cache\ConfigProvider::class,
     \Zend\Mail\ConfigProvider::class,
     \Zend\Db\ConfigProvider::class,
@@ -33,12 +36,17 @@ $aggregator = new ConfigAggregator([
     \Zend\Validator\ConfigProvider::class,
     \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
     \Zend\HttpHandlerRunner\ConfigProvider::class,
-    // Include cache configuration
-    new ArrayProvider($cacheConfig),
-
     \Zend\Expressive\Helper\ConfigProvider::class,
     \Zend\Expressive\ConfigProvider::class,
     \Zend\Expressive\Router\ConfigProvider::class,
+
+    // Include cache configuration
+    new ArrayProvider($cacheConfig),
+
+    // Rollun config
+    \rollun\uploader\ConfigProvider::class,
+    \rollun\datastore\ConfigProvider::class,
+    \rollun\permission\ConfigProvider::class,
 
     // Swoole config to overwrite some services (if installed)
     class_exists(\Zend\Expressive\Swoole\ConfigProvider::class)

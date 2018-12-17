@@ -17,6 +17,6 @@ class HomePageHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        return (new HtmlResponse('Home page!'))->get();
+        return new HtmlResponse('Home page!');
     }
 }

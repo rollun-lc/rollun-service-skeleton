@@ -77,14 +77,14 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based validation
     // - etc.
 
-    // Register the dispatch middleware in the middleware pipeline
-    $app->pipe(DispatchMiddleware::class);
-
     // Set SessionInterface into request attribute
     $app->pipe(SessionMiddleware::class);
 
     // Check permissions using ACL
     $app->pipe(PermissionMiddleware::class);
+
+    // Register the dispatch middleware in the middleware pipeline
+    $app->pipe(DispatchMiddleware::class);
 
     // At this point, if no Response is returned by any middleware, the
     // NotFoundHandler kicks in; alternately, you can provide other fallback

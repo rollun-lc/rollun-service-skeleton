@@ -6,9 +6,14 @@
 
 declare(strict_types = 1);
 
+use Psr\Container\ContainerInterface as PsrContainerInterface;
+use Interop\Container\ContainerInterface as InteropContainerInterface;
+use rollun\dic\InsideConstruct;
 use rollun\logger\LifeCycleToken;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
+
+error_reporting(E_ALL ^ E_USER_DEPRECATED);
 
 // Delegate static file requests back to the PHP built-in webserver
 if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
@@ -22,8 +27,10 @@ require 'vendor/autoload.php';
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.
  */
 (function () {
-    /** @var \Psr\Container\ContainerInterface $container */
+    /** @var PsrContainerInterface|InteropContainerInterface $container */
     $container = require 'config/container.php';
+
+    InsideConstruct::setContainer($container);
 
     /** @var Application $app */
     $app = $container->get(Application::class);
