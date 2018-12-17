@@ -9,6 +9,7 @@ use rollun\logger\Formatter\ContextToString;
 use rollun\logger\Processor\ExceptionBacktrace;
 use rollun\logger\Processor\IdMaker;
 use Zend\Log\Writer\Db as DbWriter;
+use Zend\Log\Writer\Stream;
 
 return [
     'log' => [
@@ -22,20 +23,28 @@ return [
                 ],
             ],
             'writers' => [
+//                [
+//                    'name' => DbWriter::class,
+//                    'options' => [
+//                        'db' => 'db',
+//                        'table' => 'logs',
+//                        'column' => [
+//                            'id' => 'id',
+//                            'timestamp' => 'timestamp',
+//                            'message' => 'message',
+//                            'level' => 'level',
+//                            'priority' => 'priority',
+//                            'context' => 'context',
+//                            'lifecycle_token' => 'lifecycle_token',
+//                        ],
+//                        'formatter' => ContextToString::class,
+//                    ],
+//                ],
+
                 [
-                    'name' => DbWriter::class,
+                    'name' => Stream::class,
                     'options' => [
-                        'db' => 'db',
-                        'table' => 'logs',
-                        'column' => [
-                            'id' => 'id',
-                            'timestamp' => 'timestamp',
-                            'message' => 'message',
-                            'level' => 'level',
-                            'priority' => 'priority',
-                            'context' => 'context',
-                            'lifecycle_token' => 'lifecycle_token',
-                        ],
+                        'stream' => 'php://stdout',
                         'formatter' => ContextToString::class,
                     ],
                 ],
