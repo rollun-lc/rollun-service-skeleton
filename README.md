@@ -1,7 +1,7 @@
 
 # rollun-service-skeleton
 
-`rollun-service-skeleton` - скелет для построения сервисов на базе [rollun-expressive].
+`rollun-service-skeleton` - скелет для построения сервисов на базе [zend-expressive](https://docs.zendframework.com/zend-expressive/).
 В `rollun-service-skeleton` изначально подключены такие модули:
 * [rollun-com/rollun-datastore](https://github.com/rollun-com/rollun-datastore) - абстрактное хранилище данных;
 * [rollun-com/rollun-permission](https://github.com/rollun-com/rollun-permission) - проверка прав доступа и OAuth аутентификация;
@@ -15,11 +15,11 @@
 
 `rollun-service-skeleton` имеет несколько роутов по умолчанию:
 * `/` - тестовый хендлер
-* `/oauth/redirect` - редирект на гугл аутенфикацию
-> Использовать `/oauth/redirect?action=login` для аутенфикации на логин, `/oauth/redirect?action=register` для 
-аутенфикации на регистрацию.
-* `/oauth/login` - роутинг на который гугл редиректит пользователя (при его успешной аутенфикации) для логина
-* `/oauth/register` - роутинг на который гугл редиректит пользователя (при его успешной аутенфикации) для регистрации
+* `/oauth/redirect` - редирект на гугл аутентификацию
+> Использовать `/oauth/redirect?action=login` для аутентификации на логин, `/oauth/redirect?action=register` для 
+аутентификации на регистрацию.
+* `/oauth/login` - роутинг на который google редиректит пользователя (при его успешной аутентификации) для логина
+* `/oauth/register` - роутинг на который google редиректит пользователя (при его успешной аутентификации) для регистрации
 * `/logout` - логаут пользователя
 * `/api/datastore/{resourceName}[/{id}]` роутинг для доступу к абстрактному хранилищу, где `resourceName` название 
 сервиса, а `id` - идентификатор записи.
