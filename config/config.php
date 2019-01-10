@@ -17,8 +17,9 @@ $cacheConfig = [
     'config_cache_path' => 'data/cache/config-cache.php',
 ];
 
-// Determine application environment ('dev', 'test' or 'prod').
-(new Dotenv())->load('.env');
+if (file_exists('.env')) {
+    (new Dotenv())->load('.env');
+}
 
 // Determine application environment ('dev' or 'prod').
 $appEnv = getenv('APP_ENV');
