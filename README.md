@@ -34,6 +34,13 @@
     Так же могут пригодиться настройки ACL по умолчанию: [acl_default.sql](/data/acl_default.sql).
 
 3. Обязательные переменные окружения:
+    * Для работы сервиса:
+        - APP_ENV - возможные значения: `prod`, `test`, `dev`
+        - APP_DEBUG - возможные значения: `true`, `false`
+        - SERVICE_NAME - название сервиса
+        - POD_NAME - уникальное имя сервиса
+        
+        (более детально [тут](https://github.com/rollun-com/all-standards/blob/master/docs/rsr/RSR_3.md))
     * Для БД:
         - DB_DRIVER (`Pdo_Mysql` - по умолчанию)
         - DB_NAME
