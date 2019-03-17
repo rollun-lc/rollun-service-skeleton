@@ -53,13 +53,6 @@ return [
                         'formatter' => ContextToString::class,
                     ],
                 ],
-//                [
-//                    'name' => Stream::class,
-//                    'options' => [
-//                        'stream' => 'php://stdout',
-//                        'formatter' => ContextToString::class,
-//                    ],
-//                ],
             ],
         ],
     ],

@@ -4,10 +4,13 @@
  * @license LICENSE.md New BSD License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
+use Jaeger\Tag\StringTag;
 use rollun\dic\InsideConstruct;
 use rollun\logger\LifeCycleToken;
+use rollun\utils\Json\Serializer;
+use Zend\Diactoros\ServerRequestFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 use Zend\ServiceManager\ServiceManager;
@@ -36,6 +39,49 @@ require 'vendor/autoload.php';
      */
     $tracer = $container->get(\Jaeger\Tracer\Tracer::class);
     $span = $tracer->start('index');
+
+    /**
+     * Self-called anonymous function that creates its own scope and keep the top lamda clean.
+     */
+    /**
+     *
+     */
+    (function () use ($span) {
+        $serverRequest = ServerRequestFactory::fromGlobals();
+
+        $span->addTag(new StringTag('request.attributes.json',
+            Serializer::jsonSerialize($serverRequest->getAttributes())));
+
+        foreach ($serverRequest->getHeaders() as $headerName => $headerValues) {
+            $span->addTag(new StringTag("request.header.$headerName", implode(' ,', $headerValues)));
+        }
+
+        $span->addTag(new StringTag('request.method', $serverRequest->getMethod()));
+
+        $span->addTag(new StringTag('request.protocolVersion', $serverRequest->getProtocolVersion()));
+
+        $span->addTag(new StringTag('request.target', $serverRequest->getRequestTarget()));
+
+        $span->addTag(new StringTag('request.uri', $serverRequest->getUri()->__toString()));
+
+        $span->addTag(new StringTag('request.get.raw', $serverRequest->getUri()->getQuery()));
+        $span->addTag(new StringTag('request.get.json',
+            Serializer::jsonSerialize($serverRequest->getQueryParams())));
+
+
+        $span->addTag(new StringTag('request.body', $serverRequest->getBody()->__toString()));
+
+        foreach ($serverRequest->getHeaders() as $headerName => $headerValues) {
+            $span->addTag(new StringTag("request.header.$headerName", implode(' ,', $headerValues)));
+        }
+
+        foreach ($serverRequest->getCookieParams() as $cookieName => $cookieValue) {
+            $span->addTag(new StringTag("request.cookie.$cookieName",
+                (is_array($cookieValue) ? implode(' ,', $cookieValue) : $cookieValue)));
+        }
+
+    })();
+
 
     /** @var Application $app */
     $app = $container->get(Application::class);
