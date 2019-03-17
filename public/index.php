@@ -31,6 +31,12 @@ require 'vendor/autoload.php';
 
     InsideConstruct::setContainer($container);
 
+    /**
+     * @var \Jaeger\Tracer\Tracer $tracer
+     */
+    $tracer = $container->get(\Jaeger\Tracer\Tracer::class);
+    $span = $tracer->start('index');
+
     /** @var Application $app */
     $app = $container->get(Application::class);
     $factory = $container->get(MiddlewareFactory::class);
@@ -50,4 +56,6 @@ require 'vendor/autoload.php';
     $container->setService(LifeCycleToken::class, $lifeCycleToken);
 
     $app->run();
+    $tracer->finish($span);
+    $tracer->flush();
 })();
