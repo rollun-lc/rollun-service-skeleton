@@ -2370,16 +2370,16 @@
         },
         {
             "name": "rollun-com/rollun-logger",
-            "version": "4.3.0",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-logger.git",
-                "reference": "312c4881ecc04b98821b67f0ee62dbac61c1a419"
+                "reference": "3f218a7a5a06a7e7b4d2cd05cadd90a75e0796ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-logger/zipball/312c4881ecc04b98821b67f0ee62dbac61c1a419",
-                "reference": "312c4881ecc04b98821b67f0ee62dbac61c1a419",
+                "url": "https://api.github.com/repos/rollun-com/rollun-logger/zipball/3f218a7a5a06a7e7b4d2cd05cadd90a75e0796ea",
+                "reference": "3f218a7a5a06a7e7b4d2cd05cadd90a75e0796ea",
                 "shasum": ""
             },
             "require": {
@@ -2422,7 +2422,7 @@
                 }
             ],
             "description": "Zend style Logger",
-            "time": "2019-03-17T11:47:00+00:00"
+            "time": "2019-03-17T12:56:11+00:00"
         },
         {
             "name": "rollun-com/rollun-permission",
@@ -2491,19 +2491,20 @@
         },
         {
             "name": "rollun-com/rollun-utils",
-            "version": "4.3.1",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-utils.git",
-                "reference": "1668f973418f14f9a82fead4c57a2d06a8345956"
+                "reference": "9cf9b6c07e5e8ec4ebc09cc53259f32bd552f467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/1668f973418f14f9a82fead4c57a2d06a8345956",
-                "reference": "1668f973418f14f9a82fead4c57a2d06a8345956",
+                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/9cf9b6c07e5e8ec4ebc09cc53259f32bd552f467",
+                "reference": "9cf9b6c07e5e8ec4ebc09cc53259f32bd552f467",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "facebook/webdriver": "^1.5",
                 "mindplay/jsonfreeze": "0.3.3",
                 "nicolab/php-ftp-client": "^1.4",
@@ -2534,6 +2535,7 @@
                     "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
                     "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
                     "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
+                    "rollun\\tracer\\": "src/Tracer/src",
                     "rollun\\Downloader\\": "src/Downloader/src"
                 }
             },
@@ -2558,7 +2560,7 @@
                 "php",
                 "rest"
             ],
-            "time": "2018-12-04T17:00:55+00:00"
+            "time": "2019-03-17T13:51:42+00:00"
         },
         {
             "name": "seld/jsonlint",

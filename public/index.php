@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use Jaeger\Span\Context\SpanContext;
 use Jaeger\Tag\StringTag;
 use rollun\dic\InsideConstruct;
 use rollun\logger\LifeCycleToken;
@@ -38,7 +39,6 @@ require 'vendor/autoload.php';
      * @var \Jaeger\Tracer\Tracer $tracer
      */
     $tracer = $container->get(\Jaeger\Tracer\Tracer::class);
-    $span = $tracer->start('index');
 
     /**
      * Self-called anonymous function that creates its own scope and keep the top lamda clean.
@@ -46,40 +46,62 @@ require 'vendor/autoload.php';
     /**
      *
      */
-    (function () use ($span) {
+    $span = (function () use ($tracer) {
+        $tags = [];
         $serverRequest = ServerRequestFactory::fromGlobals();
 
-        $span->addTag(new StringTag('request.attributes.json',
-            Serializer::jsonSerialize($serverRequest->getAttributes())));
-
-        foreach ($serverRequest->getHeaders() as $headerName => $headerValues) {
-            $span->addTag(new StringTag("request.header.$headerName", implode(' ,', $headerValues)));
+        $traceContextHeader = $serverRequest->getHeader(\rollun\tracer\ClientWithTracer::TRACER_HEADER_NAME);
+        if ($traceContextHeader) {
+            $traceContext = json_decode($traceContextHeader);
+            $spanContext = new SpanContext(
+                $traceContext->traceId,
+                $traceContext->spanId,
+                $traceContext->parentId,
+                $traceContext->flags
+            );
+        } else {
+            $spanContext = null;
         }
 
-        $span->addTag(new StringTag('request.method', $serverRequest->getMethod()));
 
-        $span->addTag(new StringTag('request.protocolVersion', $serverRequest->getProtocolVersion()));
-
-        $span->addTag(new StringTag('request.target', $serverRequest->getRequestTarget()));
-
-        $span->addTag(new StringTag('request.uri', $serverRequest->getUri()->__toString()));
-
-        $span->addTag(new StringTag('request.get.raw', $serverRequest->getUri()->getQuery()));
-        $span->addTag(new StringTag('request.get.json',
-            Serializer::jsonSerialize($serverRequest->getQueryParams())));
-
-
-        $span->addTag(new StringTag('request.body', $serverRequest->getBody()->__toString()));
+        $tags[] = new StringTag(
+            'request.attributes.json',
+            Serializer::jsonSerialize($serverRequest->getAttributes())
+        );
 
         foreach ($serverRequest->getHeaders() as $headerName => $headerValues) {
-            $span->addTag(new StringTag("request.header.$headerName", implode(' ,', $headerValues)));
+            $tags[] = new StringTag("request.header.$headerName", implode(' ,', $headerValues));
+        }
+
+        $tags[] = new StringTag('request.method', $serverRequest->getMethod());
+
+        $tags[] = new StringTag('request.protocolVersion', $serverRequest->getProtocolVersion());
+
+        $tags[] = new StringTag('request.target', $serverRequest->getRequestTarget());
+
+        $tags[] = new StringTag('request.uri', $serverRequest->getUri()->__toString());
+
+        $tags[] = new StringTag('request.get.raw', $serverRequest->getUri()->getQuery());
+        $tags[] = new StringTag(
+            'request.get.json',
+            Serializer::jsonSerialize($serverRequest->getQueryParams())
+        );
+
+
+        $tags[] = new StringTag('request.body', $serverRequest->getBody()->__toString());
+
+        foreach ($serverRequest->getHeaders() as $headerName => $headerValues) {
+            $tags[] = new StringTag("request.header.$headerName", implode(' ,', $headerValues));
         }
 
         foreach ($serverRequest->getCookieParams() as $cookieName => $cookieValue) {
-            $span->addTag(new StringTag("request.cookie.$cookieName",
-                (is_array($cookieValue) ? implode(' ,', $cookieValue) : $cookieValue)));
+            $tags[] = new StringTag(
+                "request.cookie.$cookieName",
+                (is_array($cookieValue) ? implode(' ,', $cookieValue) : $cookieValue)
+            );
         }
 
+        return $tracer->start('index', $tags, $spanContext);
     })();
 
 
