@@ -49,6 +49,7 @@ $aggregator = new ConfigAggregator([
     \rollun\datastore\ConfigProvider::class,
     \rollun\permission\ConfigProvider::class,
     \rollun\logger\ConfigProvider::class,
+    \rollun\tracer\ConfigProvider::class,
     \rollun\callback\ConfigProvider::class,
 
     // Default App module config
