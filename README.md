@@ -62,4 +62,4 @@
 
 Для создания метрики нужно отправить запрос на `http://health-checker/api/v1/Metric` (https://docs.rollun.net/health-checker/)
 
-Правило формирования имени метрики: `<SERVICE_NAME>_webhook_cron_get`
+Правило формирования имени метрики: `<SERVICE_NAME>__webhook_cron_get`
