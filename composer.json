@@ -42,7 +42,7 @@
     "rollun-com/rollun-callback": "^5.8",
     "rollun-com/rollun-datastore": "^6",
     "rollun-com/rollun-logger": "^4.5",
-    "rollun-com/rollun-openapi-server-bridge": "^0.1.1",
+    "rollun-com/rollun-openapi-server-bridge": "^1.0.0",
     "rollun-com/rollun-permission": "^4.0.3",
     "symfony/dotenv": "^4.2",
     "zendframework/zend-component-installer": "^2.1.1",
