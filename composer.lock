@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05a05af538f928b853475f6488ce0710",
+    "content-hash": "c8088fa850f46f77dee52e100455414b",
     "packages": [
         {
             "name": "apache/thrift",
@@ -2949,16 +2949,16 @@
         },
         {
             "name": "rollun-com/rollun-openapi-server-bridge",
-            "version": "0.1.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-openapi-server-bridge.git",
-                "reference": "eb1b990f3590e091b1584871c5e98195721d7849"
+                "reference": "62a18ad5c68e335637ff4f469bbc7dfc9044ff19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-openapi-server-bridge/zipball/eb1b990f3590e091b1584871c5e98195721d7849",
-                "reference": "eb1b990f3590e091b1584871c5e98195721d7849",
+                "url": "https://api.github.com/repos/rollun-com/rollun-openapi-server-bridge/zipball/62a18ad5c68e335637ff4f469bbc7dfc9044ff19",
+                "reference": "62a18ad5c68e335637ff4f469bbc7dfc9044ff19",
                 "shasum": ""
             },
             "require": {
@@ -2992,7 +2992,7 @@
                 "MIT"
             ],
             "description": "Bridge between rollun skeleton and openapi generated code",
-            "time": "2020-07-10T12:10:29+00:00"
+            "time": "2020-07-13T07:23:01+00:00"
         },
         {
             "name": "rollun-com/rollun-permission",
