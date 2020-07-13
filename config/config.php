@@ -25,6 +25,8 @@ if(file_exists('.env')) {
 $appEnv = getenv('APP_ENV');
 
 $aggregator = new ConfigAggregator([
+    \Zend\Hydrator\ConfigProvider::class,
+    \Zend\Serializer\ConfigProvider::class,
     \Zend\Expressive\Authentication\Basic\ConfigProvider::class,
     \Zend\Expressive\Authentication\Session\ConfigProvider::class,
     \Zend\Expressive\Authentication\ConfigProvider::class,
@@ -51,6 +53,9 @@ $aggregator = new ConfigAggregator([
     \rollun\logger\ConfigProvider::class,
     \rollun\tracer\ConfigProvider::class,
     \rollun\callback\ConfigProvider::class,
+
+    // OpenAPI config
+    \OpenAPI\Server\ConfigProvider::class,
 
     // Default App module config
     App\ConfigProvider::class,
