@@ -57,9 +57,27 @@
         - EMAIL_FROM - от кого отправить email для подтверждения регистрации
         - EMAIL_TO - кому отправить email для подтверждения регистрации
 
+4. Та же сразу с скелетоном поставляется php.ini и php-fpm.conf.
+
 ### Метрика
-При обращении на `/api/webhook/cron` срабатывает механизм отправки метрики. По этому после создания сервиса необходимо создать метрику чтобы принимающая сторона могла обработать запросы с сервиса.
+При обращении на `/api/webhook/cron` срабатывает механизм отправки метрики на `health-cheker`, если такой метрики нету, 
+она будет создана автоматически. [Документация API метрик](https://docs.rollun.net/health-checker/).
+Для собюытий типа php рантайм метрики и тд лучше использховать прометеус, с открытием ендпоинта /metrics
+Во всех остальных случаях лучше использовать `health-checker`
 
-Для создания метрики нужно отправить запрос на `http://health-checker/api/v1/Metric` (https://docs.rollun.net/health-checker/)
+### CI/CD
 
-Правило формирования имени метрики: `<SERVICE_NAME>__webhook_cron_get`
+С скелетоном поставляется Dockerfile и настроеный CI/CD используя Github Actions и D2C WebHooks
+
+CI/CD по умолчанию запускается по созданию нового тега вида `0.0.1`, 
+это легко можно кастомизировать поменяв секцию `on` в [deploy.yaml](/.github/workflows/deploy.yml)
+Так же нужно подбравить шаг `build` в [deploy.yaml](/.github/workflows/deploy.yml), там в коментах все указано
+
+Для того, что бы CI/CD работал, необходимо добавить так называемые [секреты](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) в github репозиторий:
+
+- D2C_DEPLOY_WEBHOOK - url для обновления Вашего контейнера в D2C [doc](https://docs.d2c.io/platform/webhooks/)
+- DOCKER_USER - Ваше имя аккаунта в github.
+- DOCKER_PASS - github token с правами на запись в packages [doc](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)
+
+Для того, что бы использовать другой docker registry вместо github packages, нужно заменить `docker.pkg.github.com` на Ваш registry 
+а DOCKER_USER и DOCKER_PASS поменять на ваш логин и пароль от registry
