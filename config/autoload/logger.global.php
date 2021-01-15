@@ -6,15 +6,22 @@
 
 use Psr\Log\LoggerInterface;
 use rollun\logger\Formatter\ContextToString;
+use rollun\logger\Logger;
 use rollun\logger\Processor\ExceptionBacktrace;
 use rollun\logger\Processor\IdMaker;
 use rollun\logger\Processor\LifeCycleTokenInjector;
-use Zend\Log\Writer\Db as DbWriter;
-use Zend\Log\Writer\Stream;
+use rollun\logger\Writer\Db as DbWriter;
+use rollun\logger\Writer\Stream;
 
 return [
     'log' => [
         LoggerInterface::class => [
+            Logger::FALLBACK_WRITER_KEY => [
+                'name' => Stream::class,
+                'options' => [
+                    'stream' => 'data/logs/fallback.log',
+                ]
+            ],
             'processors' => [
                 [
                     'name' => IdMaker::class,

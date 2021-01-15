@@ -37,11 +37,11 @@
     "forum": "https://discourse.zendframework.com/c/questions/expressive"
   },
   "require": {
-    "php": "^7.1",
-    "rollun-com/rollun-callback": "^5.0",
-    "rollun-com/rollun-datastore": "^6",
-    "rollun-com/rollun-logger": "^4.2",
-    "rollun-com/rollun-permission": "^4.0.3",
+    "php": "^7.2",
+    "rollun-com/rollun-callback": "^6.0",
+    "rollun-com/rollun-datastore": "^6.6",
+    "rollun-com/rollun-logger": "^5.2",
+    "rollun-com/rollun-permission": "^4.7",
     "symfony/dotenv": "^4.2",
     "zendframework/zend-component-installer": "^2.1.1",
     "zendframework/zend-config-aggregator": "^1.0",
@@ -68,7 +68,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AppTest\\": "test/AppTest/"
+      "rollun\\test\\": "test/"
     }
   },
   "scripts": {

@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace AppTest\Handler;
+namespace rollun\test\Unit\App\Handler;
 
 use App\Handler\HomePageHandler;
 use PHPUnit\Framework\TestCase;
