@@ -68,7 +68,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AppTest\\": "test/AppTest/"
+      "rollun\\test\\": "test/"
     }
   },
   "scripts": {
