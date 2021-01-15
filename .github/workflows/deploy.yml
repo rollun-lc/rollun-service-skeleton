@@ -1,32 +1,26 @@
 name: CI/CD
-on:
-  #  push:
-  #    branches:
-  #      - master
-  push:
-    tags:
-      - '*.*.*'
+on: 
+  push: {}
+  workflow_dispatch: {}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "deploy"
   deploy:
-    # The type of runner that the job will run on
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@master
       - name: Docker login
-        run: docker login docker.pkg.github.com -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+        run: docker login ghcr.io -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
       - name: Build
-        # tag image 2 times, 1 tag - latest, to replace current latest, and 2 tag is current git tag.
         run: |
           docker build \
-            -t docker.pkg.github.com/$GITHUB_REPOSITORY/$(basename $PWD):$(git describe --tags --abbrev=0) \
-#           Use this when your trigger event is not tag
-#            -t docker.pkg.github.com/$GITHUB_REPOSITORY/$(basename $PWD):$(git rev-parse --short HEAD) \
-            -t docker.pkg.github.com/$GITHUB_REPOSITORY/$(basename $PWD):latest .
+            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:$(git rev-parse --short HEAD) \
+            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:latest .
       - name: Push
-        run: docker push docker.pkg.github.com/$GITHUB_REPOSITORY/$(basename $PWD)
+        run: |
+          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:$(git rev-parse --short HEAD)
+          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:latest
       - name: Deploy D2C
         run: wget -qO- ${{ secrets.D2C_DEPLOY_WEBHOOK }}
