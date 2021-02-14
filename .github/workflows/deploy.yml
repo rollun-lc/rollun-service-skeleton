@@ -16,11 +16,11 @@ jobs:
       - name: Build
         run: |
           docker build \
-            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:$(git rev-parse --short HEAD) \
-            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:latest .
+            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/prod:$(git rev-parse --short HEAD) \
+            -t ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/prod:latest .
       - name: Push
         run: |
-          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:$(git rev-parse --short HEAD)
-          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/image:latest
+          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/prod:$(git rev-parse --short HEAD)
+          docker push ghcr.io/$GITHUB_REPOSITORY/$(basename $PWD)/prod:latest
       - name: Deploy D2C
         run: wget -qO- ${{ secrets.D2C_DEPLOY_WEBHOOK }}
