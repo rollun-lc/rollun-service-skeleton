@@ -98,3 +98,16 @@ CI/CD по умолчанию запускается по пушу в master в�
 ```bash
 composer update "rollun-com/*" --with-dependencies
 ```
+# Сумісність з rollun бібліотеками
+
+Бібліотеки сумісні включно до наступних версій:
+
+```json
+{
+   "rollun-com/rollun-callback": "^6.0.0",
+   "rollun-com/rollun-datastore": "^7.0.0",
+   "rollun-com/rollun-logger": "^6.0.0",
+   "rollun-com/rollun-utils": "^6.0.0",
+   "rollun-com/rollun-openapi": "^9.0.0"
+}
+```
